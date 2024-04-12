@@ -6,6 +6,7 @@
 
 #include "game.h"
 #include <cstdlib>
+#include <iostream>
 
 namespace target_nine {
 
@@ -81,14 +82,32 @@ MoveResult Game::processMove(MoveType type, Move move) {
     switch (type) {
         case MoveType::play:
             play(move);
-            step_forward = {}   // clears the stack
-                                // if we play new move, we generate new
-                                // branch in move history tree
+            step_forward = {};   // clears the stack
+                                 // if we play new move, we generate new
+                                 // branch in move history tree
+            return MoveResult::success;
+        case MoveType::back:
+            return stepBack();    
+        case MoveType::forward:
+            return stepForward();
+        case MoveType::show_solution:
+            solved = true;
+            return MoveResult::success;    
     }
 }
 
 bool Game::isSolved() const{
     return solved;
+}
+
+void Game::printGrid() const {
+    for (int row = 0; row < GRID_SIZE; row++) {
+        for (int col = 0; col < GRID_SIZE; col++) {
+            std::cout << grid[row][col] << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 }  // target_nine
