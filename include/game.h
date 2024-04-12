@@ -57,6 +57,7 @@ class Game {
 
     void play(Move move);
     void unplay(Move move);
+    void checkWin();
     
 public:
     Game(int min_moves_to_win_);
@@ -77,6 +78,12 @@ public:
      *         returns true, otherwise false
     */
     [[nodiscard]] bool isSolved() const;
+
+    /**
+     * <code>showBoard</code> prints the grid in terminal
+    */
+    void printGrid() const;
+    void printSolution() const;
 };
 
 }  // target_nine

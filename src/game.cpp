@@ -4,7 +4,7 @@
  * \author Konstantinos Trimikliniotis
 */
 
-#include "game.h"
+#include "../include/game.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -27,7 +27,6 @@ void Game::generatePuzzle(int min_moves_to_win_) {
         solution[i] = {row, col};
         unplay(solution[i]);
     }
-    // maybe clear the stack redo
 }
 
 MoveResult Game::stepBack() {
@@ -52,6 +51,7 @@ MoveResult Game::stepForward() {
 
 // doesn't update stack, this responsibility is upon process move
 void Game::play(Move move) {
+    grid[move.row][move.col]--;  // in both loops move cell was incremented
     for (int row = 0; row < GRID_SIZE; row++) {
         grid[row][move.col]++;
         grid[row][move.col] %= 10;  // if cell is 10 reassign it to 0
@@ -60,10 +60,12 @@ void Game::play(Move move) {
         grid[move.row][col]++;
         grid[move.row][col] %= 10;  //if cell is 10 reassign it to 0
     }
+    checkWin();
 }
 
 // doesn't update move_forward stack, this responsibility is upon process move
 void Game::unplay(Move move) {
+    grid[move.row][move.col]++;  // in both loops move cell was decremented
     for (int row = 0; row < GRID_SIZE; row++) {
         grid[row][move.col] += 10 - 1;  // first decreases value by one, 
                                         // than adds 10 to make the result of modulo consistent
@@ -94,6 +96,7 @@ MoveResult Game::processMove(MoveType type, Move move) {
             solved = true;
             return MoveResult::success;    
     }
+    return MoveResult::fail;
 }
 
 bool Game::isSolved() const{
@@ -101,13 +104,37 @@ bool Game::isSolved() const{
 }
 
 void Game::printGrid() const {
+    std::cout << "  ";
+    for (int col = 1; col <= GRID_SIZE; col++) {
+        std::cout << " " << col;
+    }
+    std::cout << std::endl << std::endl;
     for (int row = 0; row < GRID_SIZE; row++) {
+        std::cout << row + 1 << "  ";
         for (int col = 0; col < GRID_SIZE; col++) {
             std::cout << grid[row][col] << " ";
         }
         std::cout << std::endl;
     }
     std::cout << std::endl;
+}
+
+void Game::printSolution() const {
+    for (auto move: solution) {
+        std::cout << move.row + 1 << " " << move.col + 1 << std::endl;
+    }
+}
+
+void Game::checkWin() {
+    for (int row = 0; row < GRID_SIZE; row++) {
+        for (int col = 0; col < GRID_SIZE; col++) {
+            if (grid[row][col] != 9) {
+                solved = false;
+                return;
+            }
+        }
+    }
+    solved = true;
 }
 
 }  // target_nine
