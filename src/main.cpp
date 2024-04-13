@@ -25,21 +25,13 @@ int main() {
         while (game_option < 1 || game_option > Game::MENU_OPTIONS) {
             game.printGrid();
             game.printMenu();
-            int row = -1, col = -1;
-            while (row >= Game::GRID_SIZE || row < 0 || col >= Game::GRID_SIZE || col < 0) {
-                std::cout << "Enter the row for move: ";
-                std::cin >> row;
-                std::cout << "Enter the column for move: ";
-                std::cin >> col;
-                row--, col--;
-                if (row >= Game::GRID_SIZE || row < 0 || col >= Game::GRID_SIZE || col < 0) {
-                    std::cout << "Row and column must be in range from 1 to 3." 
-                            << "Please, try enter values again";
-                }
+            std::cin >> game_option;
+            if (game_option < 1 || game_option > Game::MENU_OPTIONS) {
+                continue;
             }
-            if (!(row == -1 && col == -1)) {
-                game.processMove(GameOption::play, {row, col});
-            }
+            game.processMove(static_cast<GameOption>(game_option - 1));  // order of enum elements 
+                                                                         // and printed options must be the same
+            game.processMove(GameOption::play);
         }
     }
     game.printGrid();

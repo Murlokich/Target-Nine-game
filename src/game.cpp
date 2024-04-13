@@ -81,10 +81,26 @@ void Game::unplay(Move move) {
     }
 }
 
-MoveResult Game::processMove(GameOption type, Move move) {
+Move Game::readMove() const {
+    int row = -1, col = -1;
+    while (row >= Game::GRID_SIZE || row < 0 || col >= Game::GRID_SIZE || col < 0) {
+        std::cout << "Enter the row for move: ";
+        std::cin >> row;
+        std::cout << "Enter the column for move: ";
+        std::cin >> col;
+        row--, col--;
+        if (row >= Game::GRID_SIZE || row < 0 || col >= Game::GRID_SIZE || col < 0) {
+            std::cout << "Row and column must be in range from 1 to 3." 
+                    << "Please, try enter values again";
+        }
+    }
+    return {row, col};
+}
+
+MoveResult Game::processMove(GameOption type) {
     switch (type) {
         case GameOption::play:
-            play(move);
+            play(readMove());
             step_forward = {};   // clears the stack
                                  // if we play new move, we generate new
                                  // branch in move history tree

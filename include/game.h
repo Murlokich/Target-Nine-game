@@ -28,7 +28,7 @@ struct Move {
  * show_solution: shows solution of the puzzle 
 */
 enum class GameOption {
-    play, back, forward, show_hint, 
+    play, back, forward, show_hint, exit
 };
 
 enum class MoveResult {
@@ -64,6 +64,7 @@ private:
     void unplay(Move move);
     void checkWin();
     void playHint();
+    Move readMove() const;
     
 public:
     Game(int min_moves_to_win_);
@@ -75,7 +76,7 @@ public:
      *             is not being used
      * @return Returns the result of the move as MoveResult enum class
     */
-    MoveResult processMove(GameOption type, Move move = {});
+    MoveResult processMove(GameOption type);
     
     /**
      * <code>isSolved</code> checks if puzzle is solved
