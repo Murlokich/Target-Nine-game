@@ -7,6 +7,7 @@
 #include "../include/game.h"
 #include <cstdlib>
 #include <iostream>
+#include <string>
 
 namespace target_nine {
 
@@ -80,19 +81,19 @@ void Game::unplay(Move move) {
     }
 }
 
-MoveResult Game::processMove(MoveType type, Move move) {
+MoveResult Game::processMove(GameOption type, Move move) {
     switch (type) {
-        case MoveType::play:
+        case GameOption::play:
             play(move);
             step_forward = {};   // clears the stack
                                  // if we play new move, we generate new
                                  // branch in move history tree
             return MoveResult::success;
-        case MoveType::back:
+        case GameOption::back:
             return stepBack();    
-        case MoveType::forward:
+        case GameOption::forward:
             return stepForward();
-        case MoveType::show_solution:
+        case GameOption::show_hint:
             solved = true;
             return MoveResult::success;    
     }
@@ -118,12 +119,6 @@ void Game::printGrid() const {
         std::cout << std::endl;
     }
     std::cout << std::endl;
-}
-
-void Game::printSolution() const {
-    for (auto move: solution) {
-        std::cout << move.row + 1 << " " << move.col + 1 << std::endl;
-    }
 }
 
 void Game::checkWin() {
@@ -155,6 +150,20 @@ void Game::playHint() {
               << ", col = " << solution[next_hint].col + 1
               << std::endl << std::endl;  
     next_hint++;
+    step_back = {};
+    step_forward = {};
+}
+
+void Game::printMenu() const {
+    static const std::string options[Game::MENU_OPTIONS] = {
+        "Play move", "Go to previous position",
+        "Go to next position", "Show hint", "Exit",
+    };
+    std::cout << std::endl << "Choose an option: " << std::endl;
+    for (int i = 1; i <= Game::MENU_OPTIONS; i++) {
+        std::cout << i << ") " << options[i - 1] << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 }  // target_nine

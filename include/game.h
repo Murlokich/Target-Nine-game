@@ -27,7 +27,7 @@ struct Move {
  * forward: redo last move
  * show_solution: shows solution of the puzzle 
 */
-enum class MoveType {
+enum class GameOption {
     play, back, forward, show_hint, 
 };
 
@@ -39,7 +39,11 @@ enum class MoveResult {
  * <code>Game</code> main class with game logic
 */
 class Game {
+public:
     static const int GRID_SIZE = 3;
+    static const int MENU_OPTIONS = 5;
+
+private:
     int next_hint = 0;
     int grid[GRID_SIZE][GRID_SIZE];
     bool solved = false;
@@ -59,6 +63,7 @@ class Game {
     void play(Move move);
     void unplay(Move move);
     void checkWin();
+    void playHint();
     
 public:
     Game(int min_moves_to_win_);
@@ -70,7 +75,7 @@ public:
      *             is not being used
      * @return Returns the result of the move as MoveResult enum class
     */
-    MoveResult processMove(MoveType type, Move move = {});
+    MoveResult processMove(GameOption type, Move move = {});
     
     /**
      * <code>isSolved</code> checks if puzzle is solved
@@ -84,8 +89,10 @@ public:
      * <code>showBoard</code> prints the grid in terminal
     */
     void printGrid() const;
-    void printSolution() const;
-    void playHint();
+    /**
+     * <code>printMenu</code> prints menu options in terminal
+    */
+    void printMenu() const;
 };
 
 }  // target_nine
