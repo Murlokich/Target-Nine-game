@@ -101,23 +101,28 @@ Move Game::readMove() const {
 MoveResult Game::processMove(GameOption option) {
     switch (option) {
         case GameOption::play:
-            play(readMove());
+        {
+            Move move = readMove();
+            play(move);
+            step_back.push(move);
             step_forward = {};   // clears the stack
                                  // if we play new move, we generate new
                                  // branch in move history tree
             return MoveResult::success;
+        }
         case GameOption::back:
             return stepBack();    
         case GameOption::forward:
             return stepForward();
         case GameOption::show_hint:
-            solved = true;
+            playHint();
             return MoveResult::success; 
         default:
-            assert(true);
+            assert(false);
 
     }
-    assert(true);
+    assert(false);
+    return MoveResult::fail;
 }
 
 bool Game::isSolved() const{
@@ -163,7 +168,7 @@ void Game::playHint() {
     for (int i = solution.size() - 1; i > next_hint; i--) {
         unplay(solution[i]);
     }
-    if (next_hint == solution.size() - 1) {
+    if (next_hint == (solution.size() - 1)) {
         solved = true;
     }
     std::cout << "Hint: row = " << solution[next_hint].row + 1 
@@ -176,14 +181,14 @@ void Game::playHint() {
 
 void Game::printMenu() const {
     static const std::string options[Game::MENU_OPTIONS] = {
-        "Play move", "Go to previous position",
-        "Go to next position", "Show hint", "Exit",
+        "Play move", "Undo", "Redo", "Show hint", "Exit",
     };
-    std::cout << std::endl << "Choose an option: " << std::endl;
+    std::cout << "OPTIONS: " << std::endl;
     for (int i = 1; i <= Game::MENU_OPTIONS; i++) {
         std::cout << i << ") " << options[i - 1] << std::endl;
     }
     std::cout << std::endl;
+    std::cout << std::endl << "Choose an option: ";
 }
 
 }  // target_nine

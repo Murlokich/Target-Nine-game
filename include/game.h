@@ -21,7 +21,7 @@ struct Move {
 };
 
 /**
- * <code>MoveType</code> enum which describes possible types:
+ * <code>GameOption</code> enum which describes possible types:
  * play: increasing row and column,
  * back: undo last move
  * forward: redo last move
