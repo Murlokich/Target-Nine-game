@@ -29,9 +29,11 @@ int main() {
             if (game_option < 1 || game_option > Game::MENU_OPTIONS) {
                 continue;
             }
-            game.processMove(static_cast<GameOption>(game_option - 1));  // order of enum elements 
-                                                                         // and printed options must be the same
-            game.processMove(GameOption::play);
+            GameOption option = static_cast<GameOption>(game_option - 1);
+            if (option == GameOption::exit) {
+                return 0;
+            }
+            game.processMove(option);  // order of enum elements                                                              // and printed options must be the same
         }
     }
     game.printGrid();

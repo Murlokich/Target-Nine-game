@@ -76,7 +76,7 @@ public:
      *             is not being used
      * @return Returns the result of the move as MoveResult enum class
     */
-    MoveResult processMove(GameOption type);
+    MoveResult processMove(GameOption option);
     
     /**
      * <code>isSolved</code> checks if puzzle is solved

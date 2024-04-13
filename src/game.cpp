@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <cassert>
 
 namespace target_nine {
 
@@ -97,8 +98,8 @@ Move Game::readMove() const {
     return {row, col};
 }
 
-MoveResult Game::processMove(GameOption type) {
-    switch (type) {
+MoveResult Game::processMove(GameOption option) {
+    switch (option) {
         case GameOption::play:
             play(readMove());
             step_forward = {};   // clears the stack
@@ -111,9 +112,12 @@ MoveResult Game::processMove(GameOption type) {
             return stepForward();
         case GameOption::show_hint:
             solved = true;
-            return MoveResult::success;    
+            return MoveResult::success; 
+        default:
+            assert(true);
+
     }
-    return MoveResult::fail;
+    assert(true);
 }
 
 bool Game::isSolved() const{
