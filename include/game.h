@@ -28,7 +28,7 @@ struct Move {
  * show_solution: shows solution of the puzzle 
 */
 enum class MoveType {
-    play, back, forward, show_solution, 
+    play, back, forward, show_hint, 
 };
 
 enum class MoveResult {
@@ -40,6 +40,7 @@ enum class MoveResult {
 */
 class Game {
     static const int GRID_SIZE = 3;
+    int next_hint = 0;
     int grid[GRID_SIZE][GRID_SIZE];
     bool solved = false;
     std::vector<Move> solution{};
@@ -84,6 +85,7 @@ public:
     */
     void printGrid() const;
     void printSolution() const;
+    void playHint();
 };
 
 }  // target_nine

@@ -104,6 +104,7 @@ bool Game::isSolved() const{
 }
 
 void Game::printGrid() const {
+    std::cout << std::endl;
     std::cout << "  ";
     for (int col = 1; col <= GRID_SIZE; col++) {
         std::cout << " " << col;
@@ -135,6 +136,25 @@ void Game::checkWin() {
         }
     }
     solved = true;
+}
+
+void Game::playHint() {
+    std::cout << std::endl;
+    for (int row = 0; row < GRID_SIZE; row++) {
+        for (int col = 0; col < GRID_SIZE; col++) {
+            grid[row][col] = 9;
+        }
+    }
+    for (int i = solution.size() - 1; i > next_hint; i--) {
+        unplay(solution[i]);
+    }
+    if (next_hint == solution.size() - 1) {
+        solved = true;
+    }
+    std::cout << "Hint: row = " << solution[next_hint].row + 1 
+              << ", col = " << solution[next_hint].col + 1
+              << std::endl << std::endl;  
+    next_hint++;
 }
 
 }  // target_nine
