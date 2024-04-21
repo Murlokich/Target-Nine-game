@@ -105,7 +105,7 @@ MoveResult Game::processMove(GameOption option) {
             Move move = readMove();
             play(move);
             step_back.push(move);
-            step_forward = {};   // clears the stack
+            step_forward.clear();   // clears the stack
                                  // if we play new move, we generate new
                                  // branch in move history tree
             return MoveResult::success;
@@ -175,8 +175,8 @@ void Game::playHint() {
               << ", col = " << solution[next_hint].col + 1
               << std::endl << std::endl;  
     next_hint++;
-    step_back = {};
-    step_forward = {};
+    step_back.clear();
+    step_forward.clear();
 }
 
 void Game::printMenu() const {

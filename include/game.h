@@ -9,7 +9,7 @@
 #define GAME_H_
 
 #include <vector>
-#include <stack>
+#include "linked_stack.h"
 
 namespace target_nine {
 
@@ -48,8 +48,8 @@ private:
     int grid[GRID_SIZE][GRID_SIZE];
     bool solved = false;
     std::vector<Move> solution{};
-    std::stack<Move> step_back;
-    std::stack<Move> step_forward;
+    LinkedStack<Move> step_back;
+    LinkedStack<Move> step_forward;
 
     /**
      * <code>generatePuzzle</code> randomly generates current grid and 
