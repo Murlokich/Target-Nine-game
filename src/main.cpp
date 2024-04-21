@@ -27,6 +27,7 @@ int main() {
             game.printMenu();
             std::cin >> game_option;
             if (game_option < 1 || game_option > Game::MENU_OPTIONS) {
+                std::cout << "There is no such an option. Try again!" << std::endl;
                 continue;
             }
 
