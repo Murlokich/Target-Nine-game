@@ -1,8 +1,9 @@
 /**
  * \file linked_stack.h
  * \brief This file declares the Linked Stack class used to develop the game
- *        Target Nine which is the assignment for University of Nicosia COMP211
+ *        Target Nine which is the assignment for COMP-211(01) University of Nicosia
  * \author Konstantinos Trimikliniotis
+ * \date 11 April 2024
 */
 
 #ifndef LINKED_STACK_H_

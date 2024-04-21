@@ -1,7 +1,9 @@
 /**
- * \file main.cpp
- * \brief This file contains main function and runs game loop for "Target nine" game
+ * \file src/main.cpp
+ * \brief This file contains main function which executes game loop for game Target Nine
+ *        as an assignment for COMP-211(01) University of Nicosia
  * \author Konstantinos Trimikliniotis
+ * \date 11 April 2024
 */
 
 #include "../include/game.h"

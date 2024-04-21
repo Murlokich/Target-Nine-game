@@ -1,8 +1,9 @@
 /**
  * \file game.h
- * \brief This file declares the Main Game class for "Target nine" game
- *        and some additional structs/enums
+ * \brief This file declares class Game for Target Nine game and is created as 
+ *        an assignment for COMP-211(01) University of Nicosia
  * \author Konstantinos Trimikliniotis
+ * \date 11 April 2024
 */
 
 #ifndef GAME_H_

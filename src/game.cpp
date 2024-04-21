@@ -1,5 +1,5 @@
 /**
- * \file game.cpp
+ * \file src/game.cpp
  * \brief This file defines the functions of Game class for "Target nine" game
  * \author Konstantinos Trimikliniotis
 */
