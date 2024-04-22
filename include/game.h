@@ -85,7 +85,7 @@ public:
      * @return If puzzle is solved (grid is filled with 9s) 
      *         returns true, otherwise false
     */
-    [[nodiscard]] bool isSolved() const;
+    bool isSolved() const;
 
     /**
      * <code>showBoard</code> prints the grid in terminal
